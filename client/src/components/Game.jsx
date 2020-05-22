@@ -11,6 +11,52 @@ const Game = () => {
   const [kept, setKept] = React.useState([]);
   const [saved, setSaved] = React.useState([]);
   const [numRolls, setNumRolls] = React.useState(initialRollCount);
+  const [scores, setScores] = React.useState({
+    'ones': {
+      name: `1's`,
+      target: [1],
+      score: 0,
+      setId: null
+    },
+    'twos': {
+      name: `2's`,
+      target: [2],
+      score: 0,
+      setId: null
+    },
+    'threes': {
+      name: `3's`,
+      target: [3],
+      score: 0,
+      setId: null
+    },
+    'fours': {
+      name: `4's`,
+      target: [4],
+      score: 0,
+      setId: null
+    },
+    'fives': {
+      name: `5's`,
+      target: [5],
+      score: 0,
+      setId: null
+    },
+    'sixes': {
+      name: `6's`,
+      target: [6],
+      score: 0,
+      setId: null
+    },
+  });
+
+  const showScores = () => {
+    const output = [];
+    for (const key in scores) {
+      output.push([key, scores[key]]);
+    }
+    return output;
+  };
 
   const rollDice = () => {
     if (numRolls <= 2) {
@@ -43,12 +89,23 @@ const Game = () => {
     return kept.includes(index);
   };
 
+  const onSelectScore = (key) => {
+    const newSaved = saveCup();
+    setScores(prev => ({...prev, [key]: {...prev[key], setId: newSaved.length - 1}}));
+  };
+
   const saveCup = () => {
     const newSaved = [...saved, cup];
     setSaved(newSaved);
     setCup(initialCup);
     setKept([]);
     setNumRolls(initialRollCount);
+    return newSaved;
+  };
+
+  const showSaved = (id) => {
+    console.log('saved:', saved[id]);
+    return saved[id].map((d, index) => (<Die key={index} value={d}/>));
   };
 
   return (
@@ -70,23 +127,36 @@ const Game = () => {
           />
         )) }
       </div>
-      <div>
+      {/* <div>
         <button
           onClick={saveCup}
         >Save Cup</button>
-      </div>
-      <div className="saved-rolls">
-        { saved.map(set => {
+      </div> */}
+      {/* <div className="saved-rolls">
+        { saved.map((set, i) => {
           return (
-            <div>
-              { set.map(d => (
-                <Die
+            <div key={i}>
+              { set.map((d, index) => (
+                <Die key={index}
                   value={d}
                 />
               )) }
             </div>
           )
         }) }
+      </div> */}
+      <div className="scores">
+        { showScores().map(([key, score]) => {
+          return (
+            <div key={key}>
+              <button
+                onClick={() => onSelectScore(key)}
+              >+</button>
+              <span> {score.name}</span>
+              { score.setId !== null ? showSaved(score.setId) : null }
+            </div>
+          );
+        }) } 
       </div>
     </div>
   );
