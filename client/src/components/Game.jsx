@@ -67,6 +67,62 @@ const Game = () => {
       howToScore: 'Count and Add Only Sixes',
       section: 'upper'
     },
+    'threeOfAKind': {
+      name: '3 of a kind',
+      score: 0,
+      setId: null,
+      howToScore: 'Add Total Of All Dice',
+      section: 'lower'
+    },
+    'fourOfAKind': {
+      name: '4 of a kind',
+      score: 0,
+      setId: null,
+      howToScore: 'Add Total Of All Dice',
+      section: 'lower'
+    },
+    'fullHouse': {
+      name: 'Full House',
+      score: 0,
+      setId: null,
+      howToScore: 'SCORE 25',
+      section: 'lower'
+    },
+    'smallStraight': {
+      name: 'Small Straight',
+      score: 0,
+      setId: null,
+      howToScore: 'SCORE 30',
+      section: 'lower'
+    },
+    'largeStraight': {
+      name: 'Large Straight',
+      score: 0,
+      setId: null,
+      howToScore: 'SCORE 40',
+      section: 'lower'
+    },
+    'yahtzee': {
+      name: 'YAHTZEE',
+      score: 0,
+      setId: null,
+      howToScore: 'SCORE 50',
+      section: 'lower'
+    },
+    'chance': {
+      name: 'Chance',
+      score: 0,
+      setId: null,
+      howToScore: 'Score Total Of All 5 Dice',
+      section: 'lower'
+    },
+    'yahtzeeBonus': {
+      name: 'YAHTZEE BONUS',
+      score: 0,
+      setId: null,
+      howToScore: 'SCORE 100',
+      section: 'lower'
+    }
   });
 
   const rollDice = () => {
@@ -118,7 +174,6 @@ const Game = () => {
 
   return (
     <div className="game">
-      <h2>Game</h2>
       <div>
         <button
           onClick={rollDice}

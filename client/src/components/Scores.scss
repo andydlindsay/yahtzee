@@ -3,8 +3,21 @@ table, th, td {
   border-collapse: collapse;
 }
 
+td {
+  width: 33%;
+}
+
+tr {
+  height: 40px;
+}
+
 table {
   margin: 2px;
+  width: 50%;
+}
+
+.left {
+  text-align: left;
 }
 
 .scores {
