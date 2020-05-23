@@ -2,6 +2,7 @@ import React from 'react';
 import { dieRoll } from '../helpers/dice-helpers';
 import './Game.scss';
 import Die from './Die';
+import Scores from './Scores';
 
 const Game = () => {
   const initialCup = [0, 0, 0, 0, 0];
@@ -16,37 +17,43 @@ const Game = () => {
       name: `1's`,
       target: [1],
       score: 0,
-      setId: null
+      setId: null,
+      valPerDie: 1
     },
     'twos': {
       name: `2's`,
       target: [2],
       score: 0,
-      setId: null
+      setId: null,
+      valPerDie: 2
     },
     'threes': {
       name: `3's`,
       target: [3],
       score: 0,
-      setId: null
+      setId: null,
+      valPerDie: 3
     },
     'fours': {
       name: `4's`,
       target: [4],
       score: 0,
-      setId: null
+      setId: null,
+      valPerDie: 4
     },
     'fives': {
       name: `5's`,
       target: [5],
       score: 0,
-      setId: null
+      setId: null,
+      valPerDie: 5
     },
     'sixes': {
       name: `6's`,
       target: [6],
       score: 0,
-      setId: null
+      setId: null,
+      valPerDie: 6
     },
   });
 
@@ -89,22 +96,41 @@ const Game = () => {
     return kept.includes(index);
   };
 
-  const onSelectScore = (key) => {
-    const newSaved = saveCup();
-    setScores(prev => ({...prev, [key]: {...prev[key], setId: newSaved.length - 1}}));
+  const calcScore = (target, set, valPerDie) => {
+    let total = 0;
+    for (const die of set) {
+      if (target.includes(die)) {
+        total++;
+      }
+    }
+    return total * valPerDie;
   };
 
-  const saveCup = () => {
+  const onSelectScore = (key) => {
     const newSaved = [...saved, cup];
     setSaved(newSaved);
     setCup(initialCup);
     setKept([]);
     setNumRolls(initialRollCount);
-    return newSaved;
+    setScores(prev => ({
+      ...prev,
+      [key]: {
+        ...prev[key],
+        setId: newSaved.length - 1,
+        score: calcScore(scores[key].target, cup, scores[key].valPerDie)
+      }
+    }));
+  };
+
+  const totalScore = () => {
+    let total = 0;
+    for (const key in scores) {
+      total += scores[key].score;
+    }
+    return total;
   };
 
   const showSaved = (id) => {
-    console.log('saved:', saved[id]);
     return saved[id].map((d, index) => (<Die key={index} value={d}/>));
   };
 
@@ -127,37 +153,23 @@ const Game = () => {
           />
         )) }
       </div>
-      {/* <div>
-        <button
-          onClick={saveCup}
-        >Save Cup</button>
-      </div> */}
-      {/* <div className="saved-rolls">
-        { saved.map((set, i) => {
-          return (
-            <div key={i}>
-              { set.map((d, index) => (
-                <Die key={index}
-                  value={d}
-                />
-              )) }
-            </div>
-          )
-        }) }
-      </div> */}
       <div className="scores">
         { showScores().map(([key, score]) => {
           return (
             <div key={key}>
               <button
                 onClick={() => onSelectScore(key)}
+                className={score.score ? 'hidden' : null}
               >+</button>
               <span> {score.name}</span>
               { score.setId !== null ? showSaved(score.setId) : null }
+              <span> {score.score}</span>
             </div>
           );
         }) } 
+        <div>Total: {totalScore()}</div>
       </div>
+      <Scores scores={scores} />
     </div>
   );
 };
