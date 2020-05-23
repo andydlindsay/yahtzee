@@ -1,5 +1,5 @@
 import React from 'react';
-import { dieRoll } from '../helpers/dice-helpers';
+import { calcScore, dieRoll } from '../helpers/dice-helpers';
 import './Game.scss';
 import Die from './Die';
 import Scores from './Scores';
@@ -14,56 +14,60 @@ const Game = () => {
   const [numRolls, setNumRolls] = React.useState(initialRollCount);
   const [scores, setScores] = React.useState({
     'ones': {
-      name: `1's`,
+      name: `Aces`,
       target: [1],
       score: 0,
       setId: null,
-      valPerDie: 1
+      valPerDie: 1,
+      howToScore: 'Count and Add Only Aces',
+      section: 'upper'
     },
     'twos': {
-      name: `2's`,
+      name: `Twos`,
       target: [2],
       score: 0,
       setId: null,
-      valPerDie: 2
+      valPerDie: 2,
+      howToScore: 'Count and Add Only Twos',
+      section: 'upper'
     },
     'threes': {
-      name: `3's`,
+      name: `Threes`,
       target: [3],
       score: 0,
       setId: null,
-      valPerDie: 3
+      valPerDie: 3,
+      howToScore: 'Count and Add Only Threes',
+      section: 'upper'
     },
     'fours': {
-      name: `4's`,
+      name: `Fours`,
       target: [4],
       score: 0,
       setId: null,
-      valPerDie: 4
+      valPerDie: 4,
+      howToScore: 'Count and Add Only Fours',
+      section: 'upper'
     },
     'fives': {
-      name: `5's`,
+      name: `Fives`,
       target: [5],
       score: 0,
       setId: null,
-      valPerDie: 5
+      valPerDie: 5,
+      howToScore: 'Count and Add Only Fives',
+      section: 'upper'
     },
     'sixes': {
-      name: `6's`,
+      name: `Sixes`,
       target: [6],
       score: 0,
       setId: null,
-      valPerDie: 6
+      valPerDie: 6,
+      howToScore: 'Count and Add Only Sixes',
+      section: 'upper'
     },
   });
-
-  const showScores = () => {
-    const output = [];
-    for (const key in scores) {
-      output.push([key, scores[key]]);
-    }
-    return output;
-  };
 
   const rollDice = () => {
     if (numRolls <= 2) {
@@ -96,16 +100,6 @@ const Game = () => {
     return kept.includes(index);
   };
 
-  const calcScore = (target, set, valPerDie) => {
-    let total = 0;
-    for (const die of set) {
-      if (target.includes(die)) {
-        total++;
-      }
-    }
-    return total * valPerDie;
-  };
-
   const onSelectScore = (key) => {
     const newSaved = [...saved, cup];
     setSaved(newSaved);
@@ -120,18 +114,6 @@ const Game = () => {
         score: calcScore(scores[key].target, cup, scores[key].valPerDie)
       }
     }));
-  };
-
-  const totalScore = () => {
-    let total = 0;
-    for (const key in scores) {
-      total += scores[key].score;
-    }
-    return total;
-  };
-
-  const showSaved = (id) => {
-    return saved[id].map((d, index) => (<Die key={index} value={d}/>));
   };
 
   return (
@@ -153,23 +135,7 @@ const Game = () => {
           />
         )) }
       </div>
-      <div className="scores">
-        { showScores().map(([key, score]) => {
-          return (
-            <div key={key}>
-              <button
-                onClick={() => onSelectScore(key)}
-                className={score.score ? 'hidden' : null}
-              >+</button>
-              <span> {score.name}</span>
-              { score.setId !== null ? showSaved(score.setId) : null }
-              <span> {score.score}</span>
-            </div>
-          );
-        }) } 
-        <div>Total: {totalScore()}</div>
-      </div>
-      <Scores scores={scores} />
+      <Scores scores={scores} onSelectScore={onSelectScore} />
     </div>
   );
 };
