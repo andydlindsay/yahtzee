@@ -49,7 +49,7 @@ const Scores = (props) => {
               <td className="left">{score.name}</td>
               <td>{score.howToScore}</td>
               <td>
-              { score.score !== 0 ? 
+              { score.setId !== null ? 
                 score.score :
                 <button
                   onClick={() => onSelectScore(key)}
@@ -87,7 +87,7 @@ const Scores = (props) => {
               <td className="left">{score.name}</td>
               <td>{score.howToScore}</td>
               <td>
-              { score.score !== 0 ? 
+              { score.setId !== null ? 
                 score.score :
                 <button
                   onClick={() => onSelectScore(key)}

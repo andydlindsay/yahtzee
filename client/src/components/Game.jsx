@@ -1,5 +1,5 @@
 import React from 'react';
-import { calcScore, dieRoll } from '../helpers/dice-helpers';
+import { dieRoll, scoringFunctions } from '../helpers/dice-helpers';
 import './Game.scss';
 import Die from './Die';
 import Scores from './Scores';
@@ -182,7 +182,7 @@ const Game = () => {
       [key]: {
         ...prev[key],
         setId: newSaved.length - 1,
-        score: calcScore(scores[key].target, cup, scores[key].valPerDie)
+        score: scoringFunctions[scores[key].scoringFunction](scores[key], cup)
       }
     }));
   };

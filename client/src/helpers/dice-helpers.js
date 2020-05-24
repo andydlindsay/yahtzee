@@ -42,6 +42,9 @@ export const scoringFunctions = {
     return 0;
   },
   ofAKind: (score, set) => {
+    if(!set[0]) {
+      return 0;
+    }
     const setObj = createSetObj(set);
     for (const key in setObj) {
       if (setObj[key] >= score.ofAKind) {
