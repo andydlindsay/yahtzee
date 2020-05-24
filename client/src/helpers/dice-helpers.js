@@ -1,3 +1,5 @@
+import { uniq, isEqual } from 'lodash';
+
 export const dieRoll = (sides) => {
   return Math.floor(Math.random() * sides) + 1;
 };
@@ -52,6 +54,27 @@ export const scoringFunctions = {
     return 0;
   },
   inARow: (score, set) => {
+    const combos = {
+      '4': [
+        [1, 2, 3, 4],
+        [1, 2, 3, 4, 5],
+        [1, 2, 3, 4, 6],
+        [2, 3, 4, 5],
+        [2, 3, 4, 5, 6],
+        [3, 4, 5, 6]
+      ],
+      '5': [
+        [1, 2, 3, 4, 5],
+        [2, 3, 4, 5, 6]
+      ]
+    };
+    const checkers = combos[score.inARow];
+    const sortedUnique = uniq(set).sort();
+    for (const check of checkers) {
+      if (isEqual(sortedUnique, check)) {
+        return score.amount;
+      }
+    }
     return 0;
   },
   totalDice: (score, set) => {

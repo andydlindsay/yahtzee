@@ -20,7 +20,8 @@ const Game = () => {
       setId: null,
       valPerDie: 1,
       howToScore: 'Count and Add Only Aces',
-      section: 'upper'
+      section: 'upper',
+      scoringFunction: 'target'
     },
     'twos': {
       name: `Twos`,
@@ -29,7 +30,8 @@ const Game = () => {
       setId: null,
       valPerDie: 2,
       howToScore: 'Count and Add Only Twos',
-      section: 'upper'
+      section: 'upper',
+      scoringFunction: 'target'
     },
     'threes': {
       name: `Threes`,
@@ -38,7 +40,8 @@ const Game = () => {
       setId: null,
       valPerDie: 3,
       howToScore: 'Count and Add Only Threes',
-      section: 'upper'
+      section: 'upper',
+      scoringFunction: 'target'
     },
     'fours': {
       name: `Fours`,
@@ -47,7 +50,8 @@ const Game = () => {
       setId: null,
       valPerDie: 4,
       howToScore: 'Count and Add Only Fours',
-      section: 'upper'
+      section: 'upper',
+      scoringFunction: 'target'
     },
     'fives': {
       name: `Fives`,
@@ -56,7 +60,8 @@ const Game = () => {
       setId: null,
       valPerDie: 5,
       howToScore: 'Count and Add Only Fives',
-      section: 'upper'
+      section: 'upper',
+      scoringFunction: 'target'
     },
     'sixes': {
       name: `Sixes`,
@@ -65,63 +70,73 @@ const Game = () => {
       setId: null,
       valPerDie: 6,
       howToScore: 'Count and Add Only Sixes',
-      section: 'upper'
+      section: 'upper',
+      scoringFunction: 'target'
     },
     'threeOfAKind': {
       name: '3 of a kind',
       score: 0,
       setId: null,
       howToScore: 'Add Total Of All Dice',
-      section: 'lower'
+      section: 'lower',
+      scoringFunction: 'ofAKind',
+      ofAKind: 3
     },
     'fourOfAKind': {
       name: '4 of a kind',
       score: 0,
       setId: null,
       howToScore: 'Add Total Of All Dice',
-      section: 'lower'
+      section: 'lower',
+      scoringFunction: 'ofAKind',
+      ofAKind: 4
     },
     'fullHouse': {
       name: 'Full House',
       score: 0,
       setId: null,
       howToScore: 'SCORE 25',
-      section: 'lower'
+      section: 'lower',
+      scoringFunction: 'fullHouse',
+      amount: 25
     },
     'smallStraight': {
       name: 'Small Straight',
       score: 0,
       setId: null,
       howToScore: 'SCORE 30',
-      section: 'lower'
+      section: 'lower',
+      scoringFunction: 'inARow',
+      amount: 30,
+      inARow: 4
     },
     'largeStraight': {
       name: 'Large Straight',
       score: 0,
       setId: null,
       howToScore: 'SCORE 40',
-      section: 'lower'
+      section: 'lower',
+      scoringFunction: 'inARow',
+      amount: 40,
+      inARow: 5
     },
     'yahtzee': {
       name: 'YAHTZEE',
       score: 0,
       setId: null,
       howToScore: 'SCORE 50',
-      section: 'lower'
+      section: 'lower',
+      scoringFunction: 'ofAKind',
+      ofAKind: 5,
+      amount: 50
     },
     'chance': {
       name: 'Chance',
       score: 0,
       setId: null,
       howToScore: 'Score Total Of All 5 Dice',
-      section: 'lower'
-    },
-    'yahtzeeBonus': {
-      name: 'YAHTZEE BONUS',
-      score: 0,
-      setId: null,
-      howToScore: 'SCORE 100',
-      section: 'lower'
+      section: 'lower',
+      scoringFunction: 'totalDice'
     }
   });
 
