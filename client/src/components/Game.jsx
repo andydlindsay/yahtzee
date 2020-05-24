@@ -175,20 +175,22 @@ const Game = () => {
   return (
     <div className="game">
       <div>
-        <button
-          onClick={rollDice}
-        >Roll</button>
-      </div>
-      <div className="cup">
-        { cup.map((d, index) => (
-          <Die
-            value={d}
-            index={index}
-            kept={isKept(index)}
-            onClick={toggleKept}
-            key={index}
-          />
-        )) }
+        <div>
+          <button
+            onClick={rollDice}
+          >Roll</button>
+        </div>
+        <div className="cup">
+          { cup.map((d, index) => (
+            <Die
+              value={d}
+              index={index}
+              kept={isKept(index)}
+              onClick={toggleKept}
+              key={index}
+            />
+          )) }
+        </div>
       </div>
       <Scores scores={scores} onSelectScore={onSelectScore} />
     </div>

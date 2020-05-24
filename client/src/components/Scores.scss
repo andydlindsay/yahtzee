@@ -3,8 +3,13 @@ table, th, td {
   border-collapse: collapse;
 }
 
+th {
+  padding: 0 4px;
+}
+
 td {
   width: 33%;
+  padding: 0 4px;
 }
 
 tr {
@@ -13,7 +18,7 @@ tr {
 
 table {
   margin: 2px;
-  width: 50%;
+  // width: 100%;
 }
 
 .left {
