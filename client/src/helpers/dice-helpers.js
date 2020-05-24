@@ -4,16 +4,6 @@ export const dieRoll = (sides) => {
   return Math.floor(Math.random() * sides) + 1;
 };
 
-export const calcScore = (target, set, valPerDie) => {
-  let total = 0;
-  for (const die of set) {
-    if (target.includes(die)) {
-      total++;
-    }
-  }
-  return total * valPerDie;
-};
-
 const createSetObj = (set) => {
   const setObj = {};
   for (const die of set) {
@@ -64,7 +54,8 @@ export const scoringFunctions = {
         [1, 2, 3, 4, 6],
         [2, 3, 4, 5],
         [2, 3, 4, 5, 6],
-        [3, 4, 5, 6]
+        [3, 4, 5, 6],
+        [1, 3, 4, 5, 6]
       ],
       '5': [
         [1, 2, 3, 4, 5],
