@@ -1,8 +1,8 @@
 import React from 'react';
-import { dieRoll, scoringFunctions } from '../helpers/dice-helpers';
+import { scoringFunctions, rollDice } from '../helpers/dice-helpers';
 import './Game.scss';
-import Die from './Die';
 import Scores from './Scores';
+import Cup from './Cup';
 
 const Game = () => {
   const initialCup = [0, 0, 0, 0, 0];
@@ -140,17 +140,9 @@ const Game = () => {
     }
   });
 
-  const rollDice = () => {
+  const onRollClick = () => {
     if (numRolls <= 2) {
-      const newCup = [];
-      for (let i = 0; i < 5; i++) {
-        if (kept.includes(i)) {
-          newCup.push(cup[i]);
-        } else {
-          newCup.push(dieRoll(6));
-        }
-      }
-      setCup(newCup);
+      setCup(rollDice(cup, kept));
       setNumRolls(prev => prev + 1);
     } else {
       alert(`you've rolled yer last`);
@@ -165,10 +157,6 @@ const Game = () => {
       newKept = [...kept, index];
     }
     setKept(newKept);
-  };
-
-  const isKept = (index) => {
-    return kept.includes(index);
   };
 
   const onSelectScore = (key) => {
@@ -189,25 +177,16 @@ const Game = () => {
 
   return (
     <div className="game">
-      <div>
-        <div>
-          <button
-            onClick={rollDice}
-          >Roll</button>
-        </div>
-        <div className="cup">
-          { cup.map((d, index) => (
-            <Die
-              value={d}
-              index={index}
-              kept={isKept(index)}
-              onClick={toggleKept}
-              key={index}
-            />
-          )) }
-        </div>
-      </div>
-      <Scores scores={scores} onSelectScore={onSelectScore} />
+      <Cup
+        cup={cup}
+        kept={kept}
+        toggleKept={toggleKept}
+        onRollClick={onRollClick}
+      />
+      <Scores
+        scores={scores}
+        onSelectScore={onSelectScore}
+      />
     </div>
   );
 };

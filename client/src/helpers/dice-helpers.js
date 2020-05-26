@@ -12,6 +12,18 @@ const createSetObj = (set) => {
   return setObj;
 };
 
+export const rollDice = (cup, kept, numDice = 5) => {
+  const newCup = [];
+  for (let i = 0; i < numDice; i++) {
+    if (kept.includes(i)) {
+      newCup.push(cup[i]);
+    } else {
+      newCup.push(dieRoll(6));
+    }
+  }
+  return newCup;
+};
+
 export const scoringFunctions = {
   target: (score, set) => {
     const { target, valPerDie } = score;

@@ -1,4 +1,4 @@
-import { dieRoll, scoringFunctions } from '../dice-helpers';
+import { dieRoll, scoringFunctions, rollDice } from '../dice-helpers';
 const { target, fullHouse, ofAKind, inARow, totalDice } = scoringFunctions;
 
 describe('Dice Helpers', () => {
@@ -17,6 +17,29 @@ describe('Dice Helpers', () => {
 
       expect(samples).not.toContain(0);
       expect(samples).not.toContain(numSides + 1);
+    });
+
+  });
+
+  describe('rollDice function', () => {
+
+    it('returns a valid cup', () => {
+      const cup = [];
+      const kept = [];
+      const numDice = 8;
+      const result = rollDice(cup, kept, numDice);
+
+      expect(result).toHaveLength(8);
+      expect(typeof result[0]).toBe('number');
+    });
+
+    it('keeps the kept dice', () => {
+      const cup = [1, 2, 3, 4, 5];
+      const kept = [1, 3];
+      const result = rollDice(cup, kept);
+
+      expect(result[1]).toBe(cup[1]);
+      expect(result[3]).toBe(cup[3]);
     });
 
   });
