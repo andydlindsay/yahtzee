@@ -50,7 +50,7 @@ describe('Dice Helpers', () => {
 
       it('can calculate a simple score', () => {
         const score = {
-          target: [1],
+          target: 1,
           valPerDie: 1
         };
         const set = [1, 2, 3, 4, 5];
@@ -60,7 +60,7 @@ describe('Dice Helpers', () => {
 
       it('can calculate a complex score', () => {
         const score = {
-          target: [4],
+          target: 4,
           valPerDie: 4
         };
         const set = [1, 4, 2, 4, 3];

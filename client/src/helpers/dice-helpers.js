@@ -29,7 +29,7 @@ export const scoringFunctions = {
     const { target, valPerDie } = score;
     let total = 0;
     for (const die of set) {
-      if (target.includes(die)) {
+      if (die === target) {
         total++;
       }
     }

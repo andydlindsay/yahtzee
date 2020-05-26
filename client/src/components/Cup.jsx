@@ -18,14 +18,14 @@ const Cup = (props) => {
       </div>
       <div className="dice">
         { cup.map((d, index) => (
-        <Die
-          value={d}
-          index={index}
-          kept={isKept(index)}
-          onClick={toggleKept}
-          key={index}
-        />
-      )) }
+          <Die
+            value={d}
+            index={index}
+            kept={isKept(index)}
+            onClick={toggleKept}
+            key={index}
+          />
+        )) }
       </div>
     </div>
   );

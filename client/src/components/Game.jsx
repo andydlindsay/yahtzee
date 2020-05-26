@@ -3,6 +3,7 @@ import { scoringFunctions, rollDice } from '../helpers/dice-helpers';
 import './Game.scss';
 import Scores from './Scores';
 import Cup from './Cup';
+import initialScores from '../data/scores.json';
 
 const Game = () => {
   const initialCup = [0, 0, 0, 0, 0];
@@ -12,133 +13,7 @@ const Game = () => {
   const [kept, setKept] = React.useState([]);
   const [saved, setSaved] = React.useState([]);
   const [numRolls, setNumRolls] = React.useState(initialRollCount);
-  const [scores, setScores] = React.useState({
-    'ones': {
-      name: `Aces`,
-      target: [1],
-      score: 0,
-      setId: null,
-      valPerDie: 1,
-      howToScore: 'Count and Add Only Aces',
-      section: 'upper',
-      scoringFunction: 'target'
-    },
-    'twos': {
-      name: `Twos`,
-      target: [2],
-      score: 0,
-      setId: null,
-      valPerDie: 2,
-      howToScore: 'Count and Add Only Twos',
-      section: 'upper',
-      scoringFunction: 'target'
-    },
-    'threes': {
-      name: `Threes`,
-      target: [3],
-      score: 0,
-      setId: null,
-      valPerDie: 3,
-      howToScore: 'Count and Add Only Threes',
-      section: 'upper',
-      scoringFunction: 'target'
-    },
-    'fours': {
-      name: `Fours`,
-      target: [4],
-      score: 0,
-      setId: null,
-      valPerDie: 4,
-      howToScore: 'Count and Add Only Fours',
-      section: 'upper',
-      scoringFunction: 'target'
-    },
-    'fives': {
-      name: `Fives`,
-      target: [5],
-      score: 0,
-      setId: null,
-      valPerDie: 5,
-      howToScore: 'Count and Add Only Fives',
-      section: 'upper',
-      scoringFunction: 'target'
-    },
-    'sixes': {
-      name: `Sixes`,
-      target: [6],
-      score: 0,
-      setId: null,
-      valPerDie: 6,
-      howToScore: 'Count and Add Only Sixes',
-      section: 'upper',
-      scoringFunction: 'target'
-    },
-    'threeOfAKind': {
-      name: '3 of a kind',
-      score: 0,
-      setId: null,
-      howToScore: 'Add Total Of All Dice',
-      section: 'lower',
-      scoringFunction: 'ofAKind',
-      ofAKind: 3
-    },
-    'fourOfAKind': {
-      name: '4 of a kind',
-      score: 0,
-      setId: null,
-      howToScore: 'Add Total Of All Dice',
-      section: 'lower',
-      scoringFunction: 'ofAKind',
-      ofAKind: 4
-    },
-    'fullHouse': {
-      name: 'Full House',
-      score: 0,
-      setId: null,
-      howToScore: 'SCORE 25',
-      section: 'lower',
-      scoringFunction: 'fullHouse',
-      amount: 25
-    },
-    'smallStraight': {
-      name: 'Small Straight',
-      score: 0,
-      setId: null,
-      howToScore: 'SCORE 30',
-      section: 'lower',
-      scoringFunction: 'inARow',
-      amount: 30,
-      inARow: 4
-    },
-    'largeStraight': {
-      name: 'Large Straight',
-      score: 0,
-      setId: null,
-      howToScore: 'SCORE 40',
-      section: 'lower',
-      scoringFunction: 'inARow',
-      amount: 40,
-      inARow: 5
-    },
-    'yahtzee': {
-      name: 'YAHTZEE',
-      score: 0,
-      setId: null,
-      howToScore: 'SCORE 50',
-      section: 'lower',
-      scoringFunction: 'ofAKind',
-      ofAKind: 5,
-      amount: 50
-    },
-    'chance': {
-      name: 'Chance',
-      score: 0,
-      setId: null,
-      howToScore: 'Score Total Of All 5 Dice',
-      section: 'lower',
-      scoringFunction: 'totalDice'
-    }
-  });
+  const [scores, setScores] = React.useState(initialScores);
 
   const onRollClick = () => {
     if (numRolls <= 2) {
@@ -150,13 +25,7 @@ const Game = () => {
   };
 
   const toggleKept = (index) => {
-    let newKept;
-    if (kept.includes(index)) {
-      newKept = kept.filter(i => i !== index);
-    } else {
-      newKept = [...kept, index];
-    }
-    setKept(newKept);
+    setKept(kept.includes(index) ? kept.filter(i => i !== index) : [...kept, index]);
   };
 
   const onSelectScore = (key) => {
